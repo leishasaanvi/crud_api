@@ -9,6 +9,8 @@ const getUsers = async(req,res) => {
 
         const response = users
 
+        console.log(response);
+
         res.status(200).send(response)
         
     } catch (error) {
@@ -16,6 +18,24 @@ const getUsers = async(req,res) => {
     }
 
 }
+
+
+//GET BY ID USERS
+
+const getUserById = async (req, res) => {
+  try {
+      const userId = req.params.id;
+      const user = await User.findById(userId);
+
+      if (!user) {
+          return res.status(404).send("User not found!");
+      }
+
+      res.status(200).json(user);
+  } catch (error) {
+      res.status(500).send("Cannot get user!");
+  }
+};
 
 //POST Users
 const addUsers = async(req,res) => {
@@ -30,7 +50,7 @@ const addUsers = async(req,res) => {
 
         await User.create(user)
 
-        res.status(200).send("User created successfully!")
+        res.status(201).send("User created successfully!")
         
     } catch (error) {
         res.status(500).send("Cannot add user!")
@@ -75,4 +95,4 @@ const deleteUser = async (req, res) => {
   
   
 
-module.exports = { getUsers, addUsers, updateUser, deleteUser}
+module.exports = { getUsers, getUserById, addUsers, updateUser, deleteUser}

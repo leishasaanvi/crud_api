@@ -10,12 +10,14 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 // Load environment variables from the users.env file
-dotenv.config({ path: path.resolve(__dirname, 'users.env') });
-
+dotenv.config();
+console.log(`${process.env.MONGO_CONNECTION_STRING}`)
 const config = {};
 
 // Assign the environment variable to the database configuration
-config.database = process.env.LOCALHOST_URL;
+
+config.database = process.env.MONGO_CONNECTION_STRING;
+console.log("Config:", config.database)
 
 // Export the config object
 module.exports = config;
